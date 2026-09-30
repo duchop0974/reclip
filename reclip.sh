@@ -31,13 +31,22 @@ if [ -n "$missing" ]; then
 fi
 
 # Set up venv and install Python deps
+if [ -f "venv/Scripts/activate" ]; then
+    VENV_ACTIVATE="venv/Scripts/activate"   # Windows venv layout
+else
+    VENV_ACTIVATE="venv/bin/activate"       # macOS/Linux venv layout
+fi
+
 if [ ! -d "venv" ]; then
     echo "Setting up virtual environment..."
     python3 -m venv venv
-    source venv/bin/activate
+    if [ -f "venv/Scripts/activate" ]; then
+        VENV_ACTIVATE="venv/Scripts/activate"
+    fi
+    source "$VENV_ACTIVATE"
     pip install -q flask yt-dlp
 else
-    source venv/bin/activate
+    source "$VENV_ACTIVATE"
 fi
 
 # Keep yt-dlp fresh — sites (Instagram, Facebook, etc.) break its extractors
