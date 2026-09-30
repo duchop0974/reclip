@@ -36,6 +36,29 @@ Or with Docker:
 docker build -t reclip . && docker run -p 8899:8899 reclip
 ```
 
+### Windows setup
+
+`reclip.sh` needs a bash shell — run it from **Git Bash** (or WSL), not PowerShell/cmd directly.
+
+1. Install prerequisites:
+
+   ```powershell
+   winget install ffmpeg -e --source winget
+   pip install yt-dlp
+   ```
+
+2. **Restart any open terminal apps completely** (close all windows of Git Bash/VS Code, then reopen) — Windows only applies PATH changes to new processes, and an already-running terminal app keeps using the PATH it started with.
+3. Verify both tools are on PATH:
+
+   ```bash
+   ffmpeg -version
+   yt-dlp --version
+   ```
+
+4. From the `reclip` folder, run `./reclip.sh`.
+
+If `reclip.sh` exits immediately with "Missing required tools", it means one of `ffmpeg`/`yt-dlp` isn't on PATH yet — usually fixed by fully restarting the terminal app as in step 2 (a new tab/window in the same app instance is not enough).
+
 ## Usage
 
 1. Paste one or more video URLs into the input box
